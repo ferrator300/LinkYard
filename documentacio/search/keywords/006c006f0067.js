@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("log",["Function"],[["logIn",,[["UsersManager",,,,0,"File:bundle/Users/models/UsersManager.php:UsersManager.logIn","PHPClass:UsersManager:logIn"]]],["logOut",,[["Users",,,,0,"File:bundle/Users/models/Users.php:Users.logOut","PHPClass:Users:logOut"]]]]);

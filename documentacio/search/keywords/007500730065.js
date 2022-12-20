@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("use",["Class"],[["UserController",,[[,,,,0,"File:bundle/Users/controllers/UsersController.php:UserController","PHPClass:UserController"]]],["Users",,[[,,,,0,"File:bundle/Users/models/Users.php:Users","PHPClass:Users"]]],["UsersManager",,[[,,,,0,"File:bundle/Users/models/UsersManager.php:UsersManager","PHPClass:UsersManager"]]]]);

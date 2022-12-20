@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sig",["Function"],[["signUp",,[["UsersManager",,,,0,"File:bundle/Users/models/UsersManager.php:UsersManager.signUp","PHPClass:UsersManager:signUp"]]]]);

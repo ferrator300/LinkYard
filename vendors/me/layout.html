@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+	<base href="{{ WEBBASE }}" />
+	<meta charset="UTF-8" />
+	<title>LINKYARD</title>
+	<meta name="description" content="{{ DESCRIPCIO }}" />
+	<link rel="icon" type="image/x-icon" href="../images/logo_linyard_v2.png">
+
+	<!--MATERIAL DESIGN & GOOGLE FONTS + ICONS-->
+	<link rel=" stylesheet" href="{{ESTILS}}/mdl/material.css">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+	<!--CUSTOM CSS & JS-->
+	<link rel="stylesheet" href="{{ESTILS}}/custom.css">
+
+
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+</head>
+
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
+	<header class="mdl-layout__header">
+		<div class="mdl-layout__header-row">
+			<!-- LOGO -->
+			<!-- <div id="logoDiv"> -->
+			<a class="logoDiv" href="" style="text-decoration: none;">
+				<img src="../images/logo_linyard_v2.png" class="mdl-logo"></img>
+				<!-- Title -->
+				<span class="mdl-layout-title">LINKYARD</span>
+			</a>
+			<!-- </div> -->
+			<!-- Add spacer, to align navigation to the right -->
+			<div class="mdl-layout-spacer"></div>
+			<!-- Navigation. We hide it in small screens. -->
+			<nav class="mdl-navigation">
+				<!--SEARCH-->
+				<form action="#" style="display: flex; align-items: center;">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+						<label class="mdl-button mdl-js-button mdl-button--icon" for="searchbar">
+							<i class="material-icons">search</i>
+						</label>
+						<div class="mdl-textfield__expandable-holder">
+							<input class="mdl-textfield__input" type="text" id="searchbar">
+							<label class="mdl-textfield__label" for="searchbar"></label>
+						</div>
+					</div>
+				</form>
+				<!-- SORT -->
+				<form hidden id='sortselect' action="{{WEBBASE}}Link/sortmethod" method="POST"
+					style="display: flex; align-items: center;">
+					<input type="submit">
+				</form>
+					<span class="material-symbols-outlined" style="position: relative; left: 20px;">
+						sort
+					</span>
+					<select class="mdl-textfield__input" id="sortDropmenu" name="sortMethod" form="sortselect"
+						style="width: auto; appearance: none;">
+
+						<option class='uiText_sortName' value="name">Name</option>
+						<option class='uiText_sortRating' value="rating">Rating</option>
+						<option class='uiText_sortDate' value="publicationDate">Publication date</option>
+						<option class='uiText_sortUrl' value="url">URL</option>
+					</select>
+				<!-- LANGUAGE -->
+				<span class="material-symbols-outlined" style="position: relative; left: 20px;">
+					language
+				</span>
+				<select class="mdl-textfield__input" id="languageDropdown" name="lang" style="appearance: none;">
+					<option value="CA">Català</option>
+					<option value="EN">English</option>
+					<!-- <option value="ES">Español</option>
+					<option value="FR">FR</option>
+					<option value="JP">JP</option>
+					<option value="CHN">CHN</option> -->
+				</select>
+
+				<!--LOGGED USER TOP BAR-->
+				{% if (USER == true) %}
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="toprightbtn" style="gap: 10px;">
+					<span>{{user['username']}}</span>
+					<span class="material-symbols-outlined">account_circle</span>
+				</button>
+				<!--GENERAL USER TOP BAR-->
+				{% else %}
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored " id="toprightbtn">
+					<span class="uiText_loginButton">LOGIN</span>
+				</button>
+				{% endif %}
+			</nav>
+		</div>
+	</header>
+	<div class="mdl-layout__drawer" id="drawmenu">
+		<!--GENERAL USER TOP BAR-->
+		{% if (USER != true) %}
+		<form action="{{WEBBASE}}Users/login" method='POST'>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="username_login" name="username" required>
+				<label class="mdl-textfield__label uiText_loginUsernameLabel" for="username_login" >USERNAME</label>
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="password" id="password_login" name="password" required>
+				<label class="mdl-textfield__label uiText_loginPasswordLabel" for="password_login" >PASSWORD</label>
+			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_loginSubmit"
+				type="submit">
+				LOGIN
+			</button>
+		</form>
+		<hr>
+		<div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+			<span class="mdl-layout-title uiText_newUserButton">NEW USER?</span>
+			<br>
+			<button
+				class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored signup-button uiText_signUpButton">
+				SIGN UP
+			</button>
+		</div>
+
+		<!--LOGGED USER TOP BAR-->
+		{% else %}
+		<form action="{{WEBBASE}}Link/linkmanager" method='post'>
+			<span class="mdl-layout-title uiText_sideMenuWelcome" style="color: var(--textA);">WELCOME</span><br>
+			<span class="mdl-layout-title">{{user['username']}}</span>
+			<br>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_linkManagerButton">
+				LINK MANAGER
+			</button>
+		</form>
+		<!-- QUICK ADD BUTTON -->
+		<button id="quickAdd"
+			class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_quickAddButton">
+			QUICK LINK
+		</button>
+		<hr>
+		<form action='{{WEBBASE}}Users/logout' method='post'>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_logOutButton">
+				LOG OUT
+			</button>
+		</form>
+		{% endif %}
+	</div>
+	<!--FORM REGISTRE-->
+	<div id="signup" class="signup_form signup-hide">
+		<form action='{{WEBBASE}}Users/signup' method='post' style="display: flex;">
+			<h1 class="mdl-layout-title uiText_newUserFormTitle">NEW USER</h1>
+			<div class="nowrap-full-row" style="gap: 20px;">
+				<div class="nowrap-column">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="username_signup" name="username" maxlength="20" required>
+						<label class="mdl-textfield__label uiText_newUserFormUsernameLabel"
+							for="username_signup" >USERNAME</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="password" id="password_signup" name="password"
+							autocomplete="new-password" maxlength="30" required>
+						<label class="mdl-textfield__label uiText_newUserFormPasswordLabel"
+							for="password_signup" >PASSWORD</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="password" id="retype_password"
+							autocomplete="new-password" maxlength="30" required>
+						<label class="mdl-textfield__label uiText_newUserFormRetypePasswordLabel"
+							for="retype_password">RETYPE PASSWORD</label>
+					</div>
+				</div>
+				<div class="nowrap-column">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="name_signup" name="name" maxlength="50">
+						<label class="mdl-textfield__label uiText_newUserFormNameLabel" for="name_signup">NAME</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="surname" name="surname" maxlength="50">
+						<label class="mdl-textfield__label uiText_newUserFormSurnameLabel" for="surname" >SURNAME</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="email" id="email" name="email" maxlength="30" required>
+						<label class="mdl-textfield__label uiText_newUserFormEmailLabel" for="email">EMAIL</label>
+					</div>
+				</div>
+				<input type="date" id="signup_date" name="signUpDate" hidden>
+			</div><br>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_newUserFormSubmit"
+				type="submit">
+				SIGN UP
+			</button>
+		</form>
+		<button class="mdl-button mdl-js-button mdl-button--icon close-signup">
+			<i class="material-symbols-outlined">close</i>
+		</button>
+	</div>
+
+	<!--END FORM REGISTRE-->
+	<div id="quick" class="quickAddContainer quickadd-hide ">
+		<form action="{{WEBBASE}}Link/quickadd" method='post' style="display: flex;">
+			<h1 class="mdl-layout-title uiText_quickAddFormTitle">NEW LINK</h1>
+			<div class="nowrap-full-row">
+				<div class="nowrap-column">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="name_quick" name="name" maxlength="50" required>
+						<label class="mdl-textfield__label uiText_quickAddFormName" for="name_quicks">NAME</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="url" id="url" name="url" maxlength="2048" required>
+						<label class="mdl-textfield__label uiText_quickAddFormUrl" for="url">URL</label>
+					</div>
+					<input id="quickAddDate" type="date" name="date" hidden>
+				</div>
+			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_quickAddFormSubmit"
+				type="submit">
+				ADD
+			</button>
+		</form>
+		<button id="close-quickAdd" class="mdl-button mdl-js-button mdl-button--icon close-signup">
+			<i class="material-symbols-outlined">close</i>
+		</button>
+	</div>
+	<!-- END QUICK ADD -->
+
+	{% if USER == true %}
+	<!-- NEW LINK FORM -->
+	<div id="newlink" class="addContainer add-hide">
+		<form id="newLinkForm" action="{{WEBBASE}}Link/linkmanager/add" method='post' class="nowrap-column">
+			<h1 class="mdl-layout-title uiText_addFormTitle">NEW LINK</h1>
+			<!--URL-->
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="url" id="new_url" name="url" maxlength="2048" required>
+				<label class="mdl-textfield__label uiText_addFormURL" for="new_url">URL</label>
+			</div>
+			<!--NAME-->
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="new_name" name="name" maxlength="50" required>
+				<label class="mdl-textfield__label uiText_addFormName" for="new_name">NAME</label>
+			</div>
+
+			<div class="nowrap-full-row" style="gap: 20px; align-items: stretch;">
+				<!--CATEGORIES-->
+				<div class="nowrap-column newLinkCategoriesContainer" style="max-height: 200px;">
+					{% for category in categories %}
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="category{{ category.categoryID }}" 
+						style="
+						display: inline-flex;
+						justify-content: flex-start;
+						gap: 5px;">
+							<input type="checkbox" id="category{{ category.categoryID }}" value="{{ category.categoryID }}" class="mdl-checkbox__input categoryIDInput" 
+							{% if category.categoryID == 1 %}
+								disabled checked
+							{% endif %}
+							>
+							<span class="mdl-chip">
+								<span class="mdl-chip__text">{{ category.name }}</span>
+							</span>
+							<div data-mdl-for="category{{ category.categoryID }}" style="color:var(--textA);"> <!-- class="mdl-tooltip" -->
+								by <b>{{ category.publisherUsername }}</b>
+							</div>
+							<input type="text" value="{{ category.publisherUsername }}" hidden>
+							<!-- <input type="text" value="{{ category.categoryID }}" hidden> -->
+					  	</label>
+					{% endfor %}
+				</div>
+				<div class="nowrap-column">
+					<p class="uiText_addFormDescTitle">DESCRIPTION:</p>
+					<!--DESCRIPTION-->
+					<div class="mdl-textfield mdl-js-textfield">
+						<textarea class="mdl-textfield__input" name="description" type="text" rows="5" id="new_desc" maxlength="2000"></textarea>
+						<label class="mdl-textfield__label uiText_addFormDesc" for="new_desc"
+							style="opacity: 50%;">write something...</label>
+					</div>
+					<div class="nowrap-full-row" style="gap: 10px; user-select: none;">
+						<p class="uiText_addFormRating">RATING:</p>
+						<!--SCORE-->
+						<div class="material-symbols-outlined rating " name="rating" style="user-select: none;">
+							<input type="radio" name="rating" value="5" id="r5"><label for="r5">grade</label>
+							<input type="radio" name="rating" value="4" id="r4"><label for="r4">grade</label>
+							<input type="radio" name="rating" value="3" id="r3"><label for="r3">grade</label>
+							<input type="radio" name="rating" value="2" id="r2"><label for="r2">grade</label>
+							<input type="radio" name="rating" value="1" id="r1" checked><label for="r1">grade</label>
+						</div>
+					</div>
+				</div>
+			</div><br>
+			<div class="nowrap-full-row" style="flex-direction: row-reverse; align-items: center; gap: 10px;">
+				<!--PRIVATE-->
+				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="add_private">
+					<input type="checkbox" id="add_private" name="accessibility" class="mdl-checkbox__input" value="private" checked>
+					<span class="mdl-checkbox__label uiText_addFormPrivate">PRIVATE</span>
+				</label>
+				<input id="newDate" type="date" name="publicationDate" hidden>
+				<!--ADD -->
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_addFormSubmit"
+					type="submit">
+					ADD
+				</button>
+			</div>
+		</form>
+		<button id="close-addLink" class="mdl-button mdl-js-button mdl-button--icon close-signup">
+			<i class="material-symbols-outlined">close</i>
+		</button>
+	</div>
+	<!-- END NEW LINK FORM -->
+	
+	<!-- NEW CUSTOM CATEGORY FORM -->
+	<div id="newCustomCategory">
+		<form id="newCustomCategoryForm" action="{{WEBBASE}}Link/linkmanager/addCategory" method="post">
+				<!-- TITLE -->
+			<h1 class="mdl-layout-title uiText_newCustomCategoryFormTitle">NEW CUSTOM CATEGORY</h1>
+			<!-- CATEGORY NAME -->
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="newCustomCategory_name" name="name" maxlength="25" required>
+				<label class="mdl-textfield__label uiText_addCustomCategoryFormName" for="newCustomCategory_name">Name</label>
+			</div>
+			<!-- PUBLISHER USERNAME -->
+			<input type="text" name="publisherUsername" style="display:none;" value="{{ user['username'] }}" hidden>
+			
+				<!-- SUBMIT -->
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored uiText_addFormSubmit"
+			type="submit">
+				ADD
+			</button>
+		</form>
+		<!-- CLOSE FORM BUTTON -->
+		<button id="close-addCustomCategory" class="mdl-button mdl-js-button mdl-button--icon close-signup" style="position:absolute; top:2%; left:90%;">
+			<i class="material-symbols-outlined">close</i>
+		</button>
+	</div>
+	<!-- END NEW CUSTOM CATEGORY FORM -->
+	{% endif %}
+
+
+	<main class="mdl-layout__content">
+		<div class="page-content">
+			<!-- Your content goes here -->
+			<article>
+				{{ HTMLCOS | raw }}
+			</article>
+		</div>
+	</main>
+
+	<!--FOOTER-->
+	<footer class="mdl-mini-footer">
+		<div class="mdl-mini-footer__left-section">
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+				id="nightmode">
+				<span class="material-symbols-outlined" id="nightmodetext" style="font-size: 80%">light_mode</span>
+			</button>
+			<span style="margin-right: 5px;" class="uiText_autoNightmodeLabel">
+				AUTO
+			</span>
+			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="autoNightmode">
+				<input type="checkbox" id="autoNightmode" class="mdl-switch__input" checked>
+				<span class="mdl-switch__label"></span>
+			</label>
+		</div>
+		<div class="mdl-mini-footer__middle-section">
+			<a href="Link/legalnotice" class="uiText_legalNoticeLink">legal notice</a>
+		</div>
+		<div class="mdl-mini-footer__right-section">
+			<p>Copyright © <span id="copyYear"></span><span class="uiText_copyright"> by Miquel Roura & Ferran Romero All Rights Reserved.</span> </span>
+		</div>
+	</footer>
+</div>
+</body>
+
+<script src="{{ESTILS}}/mdl/material.js"></script>
+<script defer src="{{ESTILS}}/custom_script.js"></script>
+<script defer src="{{ESTILS}}/i18n.js"></script>
+<script>
+	today = new Date();
+	document.getElementById('copyYear').innerHTML = today.getFullYear();
+</script>
+<script src="{{ESTILS}}/linkManager.js"></script>
+
+</html>

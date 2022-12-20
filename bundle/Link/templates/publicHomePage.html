@@ -1,0 +1,72 @@
+<div id="mainContent">
+    <!-- {{ HEADER }} -->
+    <div class="linksListBox">
+        {% for link in links %}
+        <div class="linkSpace">
+            <div style="width:3%;">
+                {% if user["username"] == link["linkInfo"].publisherUsername %}
+                    <span class="material-symbols-outlined" style="color:var(--secondary);">
+                        account_circle
+                    </span>
+                {% endif %}
+            </div>
+            <div class="linkContainer shrinked" id="linkContainer{{loop.index0}}">
+                <div class="linkNameDiv" id="linkNameDiv{{loop.index0}}">
+                    <!-- NAME -->
+                    <div class="linkNameDiv_name">
+                        <span class="linkNamePlaceholder">{{link["linkInfo"].name}}</span> 
+                        <span hidden>&nbsp;&nbsp;({{link["linkInfo"].accessibility}})</span>
+                    </div>
+                    <div class="ratingDiv">
+                        <span class="ratingSpan">{{link["linkInfo"].rating}}</span>
+                        <span>/5</span>
+                        <span class="material-symbols-outlined" style="font-size:30px;">
+                            grade
+                        </span>
+                    </div>
+
+                    <!-- CATEGORIES -->
+                    <div class="categoriesDiv">
+                        {% for category in link["categories"] %}
+                            <!-- <input type="button" value='{{ category["name"] }}'> -->
+                            <span class="mdl-chip">
+                                <span class="mdl-chip__text">{{ category["name"] }}</span>
+                            </span>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+                <!-- EXPAND/SHRINK BUTTON -->
+                <div id="expandShrinkButtonDiv{{loop.index0}}" class="expandShrinkButtonDiv">
+                    <i class="arrow downArrow"></i>
+                </div>
+                <!-- Lower div -->
+                <div class="linkLowerDiv"> 
+                    <!-- empty space to position it on a visible location -->
+                    <div class="linkLowerDiv_empty"></div>
+                    
+                    <!-- actual lower div -->
+                    <div class="additionalInfoContainer">
+                        <!-- FULL LINK -->
+                        <div class="additionalInfoContainer_link">
+                            <span class="uiText_fullLink">Full link</span> <br>
+                            <a href='{{link["linkInfo"].url}}'>
+                            <input readonly="readonly" type="text" style="width:80%;" value='{{link["linkInfo"].url}}'></a>
+                        </div>
+                        <!-- DESCRIPTION -->
+                        <div class="additionalInfoContainer_desc">
+                            <span class="uiText_linkDescription" style="height:30%;">Description</span> <br>
+                            <textarea readonly="readonly" style="width:80%; height:70%;">{{link["linkInfo"].description}}</textarea>
+                            <!-- <input type="text" style="width:80%;" value='{{link["linkInfo"].description}}'> -->
+                        </div>
+                        <!-- PUBLISHER -->
+                        <div class="publisherUsernameDiv">
+                            <span class="uiText_publishedBy">Published by</span> <span class="publisherUsernameText">&nbsp;{{link["linkInfo"].publisherUsername}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

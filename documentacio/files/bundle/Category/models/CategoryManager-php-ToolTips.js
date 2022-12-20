@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({12:"<div class=\"NDToolTip TClass LPHP\"><div class=\"NDClassPrototype\" id=\"NDClassPrototype12\"><div class=\"CPEntry TClass Current\"><div class=\"CPName\">Category</div></div></div><div class=\"TTSummary\">A class that manages new Categories</div></div>"});

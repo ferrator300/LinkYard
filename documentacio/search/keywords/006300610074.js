@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cat",["Class"],[["Category",,[[,,,,0,"File:bundle/Category/models/Category.php:Category","PHPClass:Category"]]],["CategoryManager",,[[,,,,0,"File:bundle/Category/models/CategoryManager.php:CategoryManager","PHPClass:CategoryManager"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("lin",["Class"],[["Link",,[[,,,,0,"File:bundle/Link/models/Link.php:Link","PHPClass:Link"]]],["LinkController",,[[,,,,0,"File:bundle/Link/controllers/LinkController.php:LinkController","PHPClass:LinkController"]]],["LinkManager",,[[,,,,0,"File:bundle/Link/models/LinkManager.php:LinkManager","PHPClass:LinkManager"]]]]);

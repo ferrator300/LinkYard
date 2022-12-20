@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("PHPClass:LinkController","LinkController");NDSummary.OnSummaryLoaded("PHPClass:LinkController",[["PHP","PHP"]],[["Classes","Class"],["Functions","Function"],["Groups","Group"]],[[36,0,0,"LinkController"],[37,0,2,"Functions","Functions"],[38,0,1,"process","process"]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("loa",["Function"],[["loadLastAddedLinkDB",,[["LinkManager",,,,0,"File:bundle/Link/models/LinkManager.php:LinkManager.loadLastAddedLinkDB","PHPClass:LinkManager:loadLastAddedLinkDB"]]]]);

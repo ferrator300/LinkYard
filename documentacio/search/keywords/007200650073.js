@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("res",["Function"],[["restoreUser",,[["Users",,,,0,"File:bundle/Users/models/Users.php:Users.restoreUser","PHPClass:Users:restoreUser"]]]]);

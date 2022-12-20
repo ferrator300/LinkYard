@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("red",["Function"],[["redirect",,[["Users",,,,0,"File:bundle/Users/models/Users.php:Users.redirect","PHPClass:Users:redirect"]]]]);

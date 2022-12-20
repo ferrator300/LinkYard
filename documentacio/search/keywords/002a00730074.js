@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("*st",["Function"],[["*STATIC*",,[["UsersManager","*STATIC* returnUser",,"*static*returnuser",0,"File:bundle/Users/models/UsersManager.php:UsersManager.*STATIC*returnUser","PHPClass:UsersManager:*STATIC*returnUser"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("che",["Function"],[["checkLinkagoriesDB",,[["LinkManager",,,,0,"File:bundle/Link/models/LinkManager.php:LinkManager.checkLinkagoriesDB","PHPClass:LinkManager:checkLinkagoriesDB"]]]]);

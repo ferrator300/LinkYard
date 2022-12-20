@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({22:"<div class=\"NDToolTip TClass LPHP\"><div class=\"NDClassPrototype\" id=\"NDClassPrototype22\"><div class=\"CPEntry TClass Current\"><div class=\"CPName\">LinkManager</div></div></div><div class=\"TTSummary\">A class that manages connection between Database and Link Bundle</div></div>"});

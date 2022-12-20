@@ -1,0 +1,280 @@
+<div id="mainContent">
+
+    <!-- Link Manager title -->
+    <div class="linkManagerTitle"> LINK MANAGER</div>
+
+    <!-- New custom category button -->
+    <span id="customCategoryButton" class="material-symbols-outlined" style="display:flex; align-items:center; justify-content:center;">
+        category
+    </span>
+    <div class="mdl-tooltip  mdl-tooltip--top uiText_customCategoryButtonTooltip" for="customCategoryButton">
+        Crate a new custom category
+    </div>
+
+    <!-- Links list box -->
+    <div class="linksListBox">
+        {% for link in links %}
+        <form action="#" method="post" id="linkManagerForm{{loop.index0}}">
+            <div class="linkSpace">
+                <div style="width:3%;">
+                    <!-- LINK ACCESSIBILITY (green or red lock) -->
+                    {% if link["linkInfo"].accessibility == "private" %}
+                        <span class="material-symbols-outlined lock private">
+                            lock
+                        </span>
+                    {% elseif link["linkInfo"].accessibility == "public" %}
+                        <span class="material-symbols-outlined lock public">
+                            lock_open
+                        </span>
+                    {% endif %}
+                    <input type="text" class="linkIDPlaceholder" name="accessibility" value='{{link["linkInfo"].accessibility}}' hidden>
+                </div>
+                <div class="linkContainer shrinked" id="linkContainer{{loop.index0}}">
+                    <div class="linkNameDiv" id="linkNameDiv{{loop.index0}}" style="z-index:10;">
+                        <!-- NAME -->
+                        <div class="linkNameDiv_name">
+                            <!-- <span class="linkNamePlaceholder">{{link["linkInfo"].name}}</span> -->
+                            <label for="linkNamePlaceholder" class="uiText_linkManagerLinkName">Name: </label>
+                            <input type="text" name="name" class="linkNamePlaceholder" value='{{link["linkInfo"].name}}'>
+                            
+                            <!-- <span class="linkAccessibilityPlaceholder" hidden>{{link["linkInfo"].accessibility}}</span> -->
+                            <input type="text" class="linkIDPlaceholder" name="linkID" value="{{link['linkInfo'].linkID}}" hidden>
+                        </div>
+                        <div class="ratingDiv" style="width:100px">
+                            <input type="number" name="rating" min="1" max="5" class="ratingUpdateInput" value='{{link["linkInfo"].rating}}'></input>
+                            <span>/5</span>
+                            <span class="material-symbols-outlined" style="font-size:30px;">
+                                grade
+                            </span>
+                        </div>
+    
+                        <!-- CATEGORIES -->
+                        <div class="categoriesDiv">
+                            {% for category in link["categories"] %}
+                                {% if category["name"] == "General" %}
+                                    <span class="mdl-chip">
+                                        <span class="mdl-chip__text">{{ category["name"] }}</span>
+                                        <span class="categoryID" hidden>{{ category["categoryID"] }}</span>
+                                    </span>
+                                {% else %}
+                                    <span class="mdl-chip ">
+                                        <span class="mdl-chip__text">{{ category["name"] }}</span>
+                                        <button type="button" class="mdl-chip__action"><i class="material-icons removeCategoryChipButton">cancel</i></button>
+                                        <span class="categoryID" hidden>{{ category["categoryID"] }}</span>
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="mdl-chip addCategoryButton">
+                                <span class="mdl-chip__text">+</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- EXPAND/SHRINK BUTTON -->
+                    <div id="expandShrinkButtonDiv{{loop.index0}}" class="expandShrinkButtonDiv">
+                        <i class="arrow downArrow"></i>
+                    </div>
+                    <!-- Lower div -->
+                    <div class="linkLowerDiv">                         
+                        <!-- actual lower div -->
+                        <div class="additionalInfoContainer" style="margin-top:65px;">
+                            <!-- FULL LINK -->
+                            <div class="additionalInfoContainer_link">
+                                <span class="uiText_fullLink">Full link</span> <br>
+                                <input type="text" style="width:80%;" name="url" value='{{link["linkInfo"].url}}'></a>
+                            </div>
+                            <!-- DESCRIPTION -->
+                            <div class="additionalInfoContainer_desc">
+                                <span class="uiText_linkDescription" style="height:30%;">Description</span> <br>
+                                <textarea name="description" style="width:80%; height:70%;">{{link["linkInfo"].description}}</textarea>
+                            </div>
+                            <!-- PUBLISHER -->
+                            <div class="publisherUsernameDiv">
+                                <span class="uiText_publishedBy">Published by</span> <span class="publisherUsernameText">&nbsp;{{link["linkInfo"].publisherUsername}}</span>
+                            </div>
+                            <!-- CONFIRM CHANGES BUTTON -->
+                            <span class="material-symbols-outlined confirmChanges">
+                                check
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- DELETE ICON -->
+                <div style="position:absolute; right: 25px; width:4%;" class="deleteLinkDiv">
+                    <span class="material-symbols-outlined deleteLink">
+                        delete_forever
+                    </span>
+                </div>
+                <!-- Categories selection menu -->
+                <div class="categoriesSelectionMenu">
+                    <div class="categoriesSelectionMenuContainer">
+                        {% for category in categories %}
+                            <span class="mdl-chip">
+                                <span class="mdl-chip__text categorySelectionMenuChip" id="link{{ link['linkInfo'].linkID }}categoryChip{{ category.categoryID }}">{{ category.name }}</span>
+                                <span class="categorySelectionMenuChipID" hidden>{{ category.categoryID }}</span>
+                                <span class="categorySelectionMenuChipPublisherUsername" hidden>{{ category.publisherUsername }}</span>
+                                <div class="mdl-tooltip  mdl-tooltip--top" for="link{{ link['linkInfo'].linkID }}categoryChip{{ category.categoryID }}">
+                                    {{ category.publisherUsername }}
+                                </div>
+                            </span>
+                            {% endfor %}
+                        </div>
+                        <button class="mdl-button mdl-js-button mdl-button--icon close-categoriesSelectionMenu" style="transition:width 0.3s, height 0.3s;">
+                        <i class="material-symbols-outlined">close</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        {% endfor %}
+        <div class="linkSpace">
+            <span id="addLinkIcon" class="material-symbols-outlined" style="font-size:5em; color:var(--textB);">
+                add_circle
+            </span>
+            <div class="mdl-tooltip  mdl-tooltip--left uiText_newLinkButtonTooltip" for="addLinkIcon">
+                Add a new link
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script>
+    //LINK REMOVAL HANDLER
+    var deleteLinkDivs = document.getElementsByClassName("deleteLinkDiv");
+    for (i in deleteLinkDivs) {
+        //Event handler onclick for the trash bin icons that remove a link.
+        deleteLinkDivs[i].onclick = function (e) {
+            var linkSpace = e.currentTarget.parentElement;
+            var linkContainerComponents = linkSpace.children;
+
+            //First, we'll hide the selected link's information from the user.
+            for (i in linkContainerComponents) {
+                //We only need to hide the DOM elements, so we have to avoid handling other objects to prevent errors.
+                if (typeof(linkContainerComponents[i]) == "object" ) 
+                    linkContainerComponents[i].style.visibility = "hidden";
+            }
+            
+            //This timeout will send an HTTP request that will process the selected link's removal from the database.
+            var waitingTime = 3000;
+            var removeLinkTimeout = setTimeout(function () {
+                //First, we'll change the route of the form so that the data is sent with linkmanager and delete as $params[1] and $params[2] respectively.
+                linkSpace.parentElement.action = "{{WEBBASE}}Link/linkmanager/delete/";
+                linkSpace.parentElement.submit();
+            }, waitingTime);
+            
+            //While the timeout is already on, we'll show the user an "undo" button that will enable them to cancel the request before it is sent.
+            appendUndoButton(linkSpace, removeLinkTimeout, linkContainerComponents, waitingTime);
+        }
+    }
+    //This function will handle the creation and addition of the undo button and its event listeners.
+    function appendUndoButton(containerNode, timeout, elementsToRecover, waitingTime) {
+        //Button itself
+        var undoButton = document.createElement("span");
+        undoButton.classList.add("material-symbols-outlined");
+        undoButton.classList.add("undoRemoveButton");
+        undoButton.innerText = "Undo";
+        containerNode.appendChild(undoButton);
+
+        //When clicked, it'll cancel the link removal timeout.
+        undoButton.addEventListener("click", function (e) { 
+            //We'll stop the timeout that would otherwise send an HTTP request to process the removal.
+            window.clearTimeout(timeout);
+        
+            //We'll make the link container elements visible again.
+            for (i in elementsToRecover) {
+                //We only need to hide the DOM elements, so we have to avoid handling other objects to prevent errors.
+                if (typeof(elementsToRecover[i]) == "object" )
+                    if (!elementsToRecover[i].classList.contains("categoriesSelectionMenu")) //The categories selection menu does need to remain hidden.    
+                        elementsToRecover[i].style.visibility = "visible";
+            }
+            
+            //We remove the countdown display and undo button (important to do it in this order!).
+            e.currentTarget.nextElementSibling.remove();
+            e.currentTarget.remove();
+        });
+        
+        //Countdown display
+        var countdownSpan = document.createElement("span");
+        countdownSpan.classList.add("undoRemoveCountdown");
+        countdownSpan.innerText = 2;
+        containerNode.appendChild(countdownSpan);
+        
+        //Countdown display updater
+        setInterval(function (e) {
+            waitingTime -= 100;
+            countdownSpan.innerText = parseInt(waitingTime/1000) + "s";
+            //To round it to 1 decimal always.
+            // countdownSpan.innerText = (Math.round((waitingTime/1000) * 100) / 100).toFixed(1) + "s left";
+        }, 100);
+        
+        //We'll also apply hover effects to the button just for fun.
+        undoButton.onmouseover = function (e) {
+            e.currentTarget.style.transform = "translate(-50%,-50%) scale(1.3)";
+        }
+        undoButton.onmouseout = function (e) {
+            e.currentTarget.style.transform = "translate(-50%,-50%) scale(1)";
+        }
+        undoButton.onmousedown = function (e) {
+            e.currentTarget.style.transform = "translate(-50%,-50%) scale(0.8)";
+        }
+    }
+    
+    //UPDATE LINK
+    var confirmChangesSpans = document.getElementsByClassName("confirmChanges");
+    
+    for (i in confirmChangesSpans) {
+        //Update button click event listener
+        confirmChangesSpans[i].onclick = function (e) {
+            var linkForm = e.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement;
+            linkForm.action = "{{WEBBASE}}Link/linkmanager/update/";
+    
+            //We'll check if the added rating is between 1 and 5.
+            if (linkForm.getElementsByClassName("ratingUpdateInput")[0].value > 5) 
+                linkForm.getElementsByClassName("ratingUpdateInput")[0].value = 5;
+            else if (linkForm.getElementsByClassName("ratingUpdateInput")[0].value < 1)
+                linkForm.getElementsByClassName("ratingUpdateInput")[0].value = 1;
+    
+            //Now we'll gather the remaining categories chosen by the user for the updated link.
+            var categoryIDSpans = linkForm.getElementsByClassName("categoryID");
+            var categoriesArray = [];
+            for (i in categoryIDSpans) {
+                //We'll only store the data of the DOM elements to prevent catching unexpected functions and commentaries.
+                if (typeof(categoryIDSpans[i]) == 'object') {
+                    categoryIDSpans[i].style.visibility = "visible"; //We need to set the visibility to visible in order to read the span's value.
+                    categoriesArray.push(categoryIDSpans[i].innerText);
+                    categoryIDSpans[i].style.visibility = "hidden"; //We need to set the visibility to visible in order to read the span's value.
+                }
+            }
+    
+            //Input form element generation and filling it with data.
+            var categoryIDs = document.createElement("input");
+            categoryIDs.setAttribute("name", "categoryIDs");
+            categoryIDs.setAttribute("type", "text");
+            categoryIDs.value = categoriesArray.join(";"); //We'll serialize the values of the array separating them by ";" and converting them to string.
+            linkForm.appendChild(categoryIDs);
+            
+            //Last time edited form field. We need to create it, fill it and append it to the form automatically before submission.
+            today = new Date();
+            var lastTimeEditedField = document.createElement("input");
+            lastTimeEditedField.setAttribute("name", "lastTimeEdited");
+            lastTimeEditedField.setAttribute("type", "date");
+            // lastTimeEditedField.value = today;
+            lastTimeEditedField.valueAsDate = today;
+            linkForm.appendChild(lastTimeEditedField);
+    
+            linkForm.submit(); //Form submission.
+        }
+    
+        //Confirm changes span onhover event listener
+        confirmChangesSpans[i].onmouseover = function (e) {
+            e.currentTarget.style.transform = "scale(1.2)";
+        }
+        confirmChangesSpans[i].onmouseout = function (e) {
+            e.currentTarget.style.transform = "scale(1)";
+        }
+        confirmChangesSpans[i].onmousedown = function (e) {
+            e.currentTarget.style.transform = "scale(0.8)";
+        }
+    }
+    
+
+
+</script>

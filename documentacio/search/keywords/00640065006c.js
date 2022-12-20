@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("del",["Function"],[["deleteDB",,[["LinkManager",,,,0,"File:bundle/Link/models/LinkManager.php:LinkManager.deleteDB","PHPClass:LinkManager:deleteDB"]]],["deleteLinkagoriesOfLinkDB",,[["LinkManager",,,,0,"File:bundle/Link/models/LinkManager.php:LinkManager.deleteLinkagoriesOfLinkDB","PHPClass:LinkManager:deleteLinkagoriesOfLinkDB"]]]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("PHPClass:Category","Category");NDSummary.OnSummaryLoaded("PHPClass:Category",[["PHP","PHP"]],[["Classes","Class"],["Functions","Function"],["Groups","Group"]],[[12,0,0,"Category"],[13,0,2,"Functions","Functions"],[14,0,1,"insertDB","insertDB"],[15,0,1,"getInfo","getInfo"]]);
