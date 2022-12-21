@@ -35,13 +35,13 @@
                         <div class="linkNameDiv_name">
                             <!-- <span class="linkNamePlaceholder">{{link["linkInfo"].name}}</span> -->
                             <label for="linkNamePlaceholder" class="uiText_linkManagerLinkName">Name: </label>
-                            <input type="text" name="name" class="linkNamePlaceholder" value='{{link["linkInfo"].name}}'>
+                            <input type="text" name="name" class="linkNamePlaceholder" value='{{link["linkInfo"].name}}' tabindex="-1">
                             
                             <!-- <span class="linkAccessibilityPlaceholder" hidden>{{link["linkInfo"].accessibility}}</span> -->
                             <input type="text" class="linkIDPlaceholder" name="linkID" value="{{link['linkInfo'].linkID}}" hidden>
                         </div>
                         <div class="ratingDiv" style="width:100px">
-                            <input type="number" name="rating" min="1" max="5" class="ratingUpdateInput" value='{{link["linkInfo"].rating}}'></input>
+                            <input type="number" name="rating" min="1" max="5" class="ratingUpdateInput" value='{{link["linkInfo"].rating}}' tabindex="-1"></input>
                             <span>/5</span>
                             <span class="material-symbols-outlined" style="font-size:30px;">
                                 grade
@@ -80,12 +80,12 @@
                             <!-- FULL LINK -->
                             <div class="additionalInfoContainer_link">
                                 <span class="uiText_fullLink">Full link</span> <br>
-                                <input type="text" style="width:80%;" name="url" value='{{link["linkInfo"].url}}'></a>
+                                <input type="text" style="width:80%;" name="url" value='{{link["linkInfo"].url}}' tabindex="-1"></a>
                             </div>
                             <!-- DESCRIPTION -->
                             <div class="additionalInfoContainer_desc">
                                 <span class="uiText_linkDescription" style="height:30%;">Description</span> <br>
-                                <textarea name="description" style="width:80%; height:70%;">{{link["linkInfo"].description}}</textarea>
+                                <textarea name="description" style="width:80%; height:70%;" tabindex="-1">{{link["linkInfo"].description}}</textarea>
                             </div>
                             <!-- PUBLISHER -->
                             <div class="publisherUsernameDiv">

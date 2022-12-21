@@ -28,7 +28,6 @@
                     <!-- CATEGORIES -->
                     <div class="categoriesDiv">
                         {% for category in link["categories"] %}
-                            <!-- <input type="button" value='{{ category["name"] }}'> -->
                             <span class="mdl-chip">
                                 <span class="mdl-chip__text">{{ category["name"] }}</span>
                             </span>
@@ -50,13 +49,13 @@
                         <!-- FULL LINK -->
                         <div class="additionalInfoContainer_link">
                             <span class="uiText_fullLink">Full link</span> <br>
-                            <a href='{{link["linkInfo"].url}}'>
-                            <input readonly="readonly" type="text" style="width:80%;" value='{{link["linkInfo"].url}}'></a>
+                                <a href='{{link["linkInfo"].url}}' tabindex="-1">
+                            <input readonly="readonly" type="text" style="width:80%;" value='{{link["linkInfo"].url}}' tabindex="-1"></a>
                         </div>
                         <!-- DESCRIPTION -->
                         <div class="additionalInfoContainer_desc">
                             <span class="uiText_linkDescription" style="height:30%;">Description</span> <br>
-                            <textarea readonly="readonly" style="width:80%; height:70%;">{{link["linkInfo"].description}}</textarea>
+                            <textarea readonly="readonly" style="width:80%; height:70%;" tabindex="-1">{{link["linkInfo"].description}}</textarea>
                             <!-- <input type="text" style="width:80%;" value='{{link["linkInfo"].description}}'> -->
                         </div>
                         <!-- PUBLISHER -->
