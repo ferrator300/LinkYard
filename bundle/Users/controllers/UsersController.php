@@ -36,7 +36,7 @@ class UsersController extends Controller
 					Users::redirect(PGDEFAULT);
 					break;
 				default:
-					# code...
+					Users::redirect(PGDEFAULT);
 					break;
 			}
 		}
