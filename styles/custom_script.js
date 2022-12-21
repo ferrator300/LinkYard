@@ -8,14 +8,10 @@ document.getElementById("toprightbtn").onclick = function (e) {
     document.getElementById('drawmenu').ariaHidden = false;
     document.querySelector('.mdl-layout__obfuscator').classList.add('is-visible');
 }
-// document.getElementById("logoDiv").onclick = function () {
-//     location.href = "";
-// }
+
 // #endregion
 
 // #region NIGHTMODE
-//Nightmode button 
-// var nightmode = false;
 
 //This will control if the nightmode should be changed automatically according to the client's time.
 // var autoNightmode = true;
@@ -487,3 +483,38 @@ document.getElementById('sortDropmenu').addEventListener('change', function(e) {
 });
 
 // #endregion
+
+
+//WORKAROUND FOR THE TAB ROTATION PROBLEMS
+window.onkeydown = function (e) {
+    if (e.key == "Tab") {
+        if (document.activeElement.id == "toprightbtn") {
+            e.preventDefault();
+            document.getElementById("nightmode").focus();
+        }
+        else if ( document.activeElement.classList.contains("uiText_loginSubmit") ) {
+            e.preventDefault();
+            document.getElementById("username_login").focus();
+        }
+        else if ( document.activeElement.classList.contains("uiText_newUserFormSubmit") ) {
+            e.preventDefault();
+            document.getElementById("username_signup").focus();
+        }
+        else if ( document.activeElement.classList.contains("uiText_logOutButton") ) {
+            e.preventDefault();
+            document.getElementsByClassName("uiText_linkManagerButton")[0].focus();
+        }
+        else if ( document.activeElement.id == "submitNewCustomCategory" ) {
+            e.preventDefault();
+            document.getElementById("newCustomCategory_name").focus();
+        }
+        else if ( document.activeElement.classList.contains("uiText_addFormSubmit") ) {
+            e.preventDefault();
+            document.getElementById("new_url").focus();
+        }
+        else if ( document.activeElement.classList.contains("uiText_quickAddFormSubmit") ) {
+            e.preventDefault();
+            document.getElementById("name_quick").focus();
+        }
+    }
+}
